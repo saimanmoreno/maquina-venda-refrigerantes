@@ -2,25 +2,24 @@ package vendarefrigerantes;
 
 /**
  *
- * @author pc
+ * @author thesimmons
  */
 public class Moedas {
-    
+
     private int valor;
     private int qtdade;
 
-    @Override
-    public String toString() {
-        return valor + " | " + qtdade;
-    }
-
+    // constructor
     public Moedas(int valor, int qtdade) {
         this.valor = valor;
         this.qtdade = qtdade;
     }
 
-    
-    
+    @Override
+    public String toString() {
+        return valor + "," + qtdade;
+    }
+
     public int getValor() {
         return valor;
     }
@@ -36,8 +35,4 @@ public class Moedas {
     public void setQtdade(int qtdade) {
         this.qtdade = qtdade;
     }
-    
-    
 }
-
-

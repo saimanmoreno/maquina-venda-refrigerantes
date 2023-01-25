@@ -2,27 +2,26 @@ package vendarefrigerantes;
 
 /**
  *
- * @author pc
+ * @author thesimmons
  */
 public class Produto {
-    
+
     private String descrição;
     private int preço;
     private int qtdade;
 
+    // constructor
     public Produto(String descrição, int preço, int qtdade) {
         this.descrição = descrição;
         this.preço = preço;
         this.qtdade = qtdade;
     }
 
-    
     @Override
     public String toString() {
-        return descrição + " | " + preço + " | " + qtdade + " | ";
+        return descrição + "," + preço + "," + qtdade;
     }
 
-    
     public String getDescrição() {
         return descrição;
     }
@@ -46,6 +45,4 @@ public class Produto {
     public void setQtdade(int qtdade) {
         this.qtdade = qtdade;
     }
-    
-    
 }

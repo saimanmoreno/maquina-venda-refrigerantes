@@ -1,4 +1,0 @@
-Cola | 80 | 8 | 
-Fanta | 70 | 7 | 
-Sprit | 60 | 8 | 
-Sumol | 80 | 6 | 
