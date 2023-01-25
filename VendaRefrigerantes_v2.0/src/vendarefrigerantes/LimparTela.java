@@ -1,6 +1,6 @@
 package vendarefrigerantes;
 
-import com.sun.glass.events.KeyEvent;
+import java.awt.event.KeyEvent;
 import java.awt.AWTException;
 import java.awt.Robot;
 
