@@ -1,4 +1,4 @@
-Cola,80,19
-Fanta,70,7
-Sprit,60,8
-Sumol,80,6
+Cola,100,8
+Fanta,90,6
+Sprit,80,7
+Sumol,100,5
