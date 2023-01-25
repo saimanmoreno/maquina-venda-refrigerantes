@@ -1,7 +1,0 @@
-/**
- * @author Simão Moreno
- * Curso: Engenharia Informatica e Computadores
- * Ano: 2º ano
- * Telefone: 9848806
- * Email: simaomoreno.unicv@gmail.com
- */
