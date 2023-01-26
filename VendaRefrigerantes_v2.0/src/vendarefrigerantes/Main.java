@@ -40,7 +40,7 @@ public class Main {
             System.out.print("\n\nCódigo\t\tOpção\n"
                     + "--------------------------------------------------------------\n"
                     + "[1]\t\tSelecionar lista de produtos\n"
-                    + "[2]\t\tLogin como administrador\n"
+                    + "[2]\t\tLogin como administrador (Comming Soon)\n"
                     + "[0]\t\tSAIR DA APLICACAO\n"
                     + "--------------------------------------------------------------\n"
                     + " >> ");
@@ -55,16 +55,16 @@ public class Main {
                     adminMenu();
                     break;
 
+                case 0:
+                    // exit
+                    break;
+
                 default:
                     System.out.println("\n\nOPCAO INVALIDA!!!");
             }
         } while (opcao != 0);
 
-        // antes de sair, guardar os dados no ficheiro
-        new Ficheiros().escreverFile(moedas, txtMoedas);
-        new Ficheiros().escreverFile(produtos, txtProdutos);
-
-        System.out.println("\n\nADEUS E OBRIGADO! \n\n\n\n");
+        System.out.println("\n\nADEUS E OBRIGADO! \n\n");
 
     }
 
@@ -117,9 +117,10 @@ public class Main {
                 produtos.get(opcao - 1).getPreço(),
                 produtos.get(opcao - 1).getQtdade());
 
-        System.out.println("Produto escolhido: " + produto.getDescrição() + "\nPreço: " + produto.getPreço() + "$00");
+        System.out.println("\n\nProduto escolhido => " + produto.getDescrição().toUpperCase());
+        System.out.println("Preço => " + produto.getPreço() + "$00");
 
-        System.out.print("Por favor, Introduza a moeda no valor correspondente na maquina\n >> ");
+        System.out.print("\n\nPor favor, introduza as moedas no valor correspondente na maquina\n >> ");
         int valor = ler.nextInt();
 
         // se o valor introduzido nao for um multiplo de 5
@@ -128,29 +129,31 @@ public class Main {
         // }
 
         while (valor < produto.getPreço()) {
-            System.out.print("Falta mais " + (produto.getPreço() - valor) + "$00"
-                    + "Por favor, Introduza a moeda no valor correspondente na maquina\n>");
+            System.out.println("\n\nFALTAM MAIS " + (produto.getPreço() - valor) + "$00");
+            System.out.print("Por favor, introduza as moedas no valor correspondente restante na maquina\n >> ");
             valor += ler.nextInt();
         }
 
+        System.out.println("\n\n ------ COMPRA EFETUADA COM SUCESSO! ------ \n");
         System.out.println("Total inserido: " + valor + "$00");
 
         if (valor > produto.getPreço()) {
 
             int diferenca = valor - produto.getPreço();
 
-            System.out.println("\nTroco: " + diferenca + "$00");
+            System.out.println("Troco: " + diferenca + "$00");
 
             moedasTroco = processTroco(diferenca, produto.getPreço());
+
+            System.out.print("Recolha as suas moedas de troco na maquina: ");
+
+            for (Integer troco : moedasTroco) {
+                System.out.print(troco + "$00\t");
+            }
+            
         }
 
-        System.out.print("Pegue as suas moedas de troco:\t");
-
-        for (Integer troco : moedasTroco) {
-            System.out.print(troco + "$00\t");
-        }
-
-        System.out.println("\nRetire o seu produto! Obrigado");
+        System.out.println("\n\n ------ Retire o seu produto! Obrigado. ------ \n\n");
 
         produto.setQtdade(produto.getQtdade() - 1);
         produtos.set(opcao - 1, produto);
@@ -222,7 +225,7 @@ public class Main {
      * Menu do administrador para inserção de novas moedas e produtos
      */
     private static void adminMenu() {
-
+        System.out.println("\n\nBrevemente esta funcionalidade!\n");
     }
 
     /**
