@@ -31,8 +31,8 @@ public class Main {
         moedas = new Ficheiros().lerMoedas(txtMoedas);
         produtos = new Ficheiros().lerProdutos(txtProdutos);
 
-        // initializeProdCoins(); // carregar as informações sobre qtdd de moedas e
-        // preço dos produtos
+        if (moedas.size() == 0 || produtos.size() == 0)
+            initialize(); // se não há dados utilizar o predefinido
 
         int opcao;
 
@@ -60,8 +60,9 @@ public class Main {
             }
         } while (opcao != 0);
 
-        new Ficheiros().escreverFile(moedas, txtMoedas); // gravar dados no ficheiro
-        new Ficheiros().escreverFile(produtos, txtProdutos); // gravar dados no ficheiro
+        // antes de sair, guardar os dados no ficheiro
+        new Ficheiros().escreverFile(moedas, txtMoedas);
+        new Ficheiros().escreverFile(produtos, txtProdutos);
 
         System.out.println("\n\nADEUS E OBRIGADO! \n\n\n\n");
 
@@ -91,6 +92,8 @@ public class Main {
 
             s_opcao = ler.nextInt();
 
+            // se a opcao escolhida nao for zero e for um codigo existente e for multiplo de
+            // 5
             if (s_opcao != 0 && s_opcao < (produtos.size() + 1))
                 comprar(s_opcao);
             else
@@ -102,9 +105,12 @@ public class Main {
 
     /**
      * Processa a operação de compra
+     * 
      * @param opcao
      */
     private static void comprar(int opcao) {
+
+        ArrayList<Integer> moedasTroco = new ArrayList<>();
 
         Produto produto = new Produto(
                 produtos.get(opcao - 1).getDescrição(),
@@ -115,6 +121,11 @@ public class Main {
 
         System.out.print("Por favor, Introduza a moeda no valor correspondente na maquina\n >> ");
         int valor = ler.nextInt();
+
+        // se o valor introduzido nao for um multiplo de 5
+        // if ([5,10,20,50,100].) {
+
+        // }
 
         while (valor < produto.getPreço()) {
             System.out.print("Falta mais " + (produto.getPreço() - valor) + "$00"
@@ -130,10 +141,16 @@ public class Main {
 
             System.out.println("\nTroco: " + diferenca + "$00");
 
-            processTroco(diferenca, produto.getPreço());
+            moedasTroco = processTroco(diferenca, produto.getPreço());
         }
 
-        System.out.println("Retire o seu produto! Obrigado");
+        System.out.print("Pegue as suas moedas de troco:\t");
+
+        for (Integer troco : moedasTroco) {
+            System.out.print(troco + "$00\t");
+        }
+
+        System.out.println("\nRetire o seu produto! Obrigado");
 
         produto.setQtdade(produto.getQtdade() - 1);
         produtos.set(opcao - 1, produto);
@@ -147,10 +164,11 @@ public class Main {
      * @param diferenca total de troco a devolver
      * @param preço     preço total do produto comprado
      */
-    private static void processTroco(int diferenca, int preço) {
+    private static ArrayList<Integer> processTroco(int diferenca, int preço) {
+
+        ArrayList<Integer> moedasTroco = new ArrayList<>();
 
         do {
-
             int value = 5; // dado que a moeda de menor valor é 5
 
             if (diferenca >= 100)
@@ -162,17 +180,23 @@ public class Main {
             else if (diferenca >= 10)
                 value = 10;
 
+            // System.out.println("Diferenca == " + diferenca);
+            // System.out.println("Valor == " + value);
+
             for (Moedas moeda : moedas)
                 if (moeda.getValor() == value) {
                     moeda.setQtdade(moeda.getQtdade() - 1); // decrementar a quantidade da moeda dado como troco
                     moedas.set(moedas.indexOf(moeda), moeda); // atualizar a moeda na lista de moedas
                     diferenca -= value; // incrementar a diferenca de troco restante
+                    moedasTroco.add(value); // guarda a lista de moedas devolvidas
                     break; // nao procurar mais moedas
                 }
 
-        } while (diferenca > preço);
-        
+        } while (diferenca > 0);
+
         new Ficheiros().escreverFile(moedas, txtMoedas);
+
+        return moedasTroco;
     }
 
     /**
