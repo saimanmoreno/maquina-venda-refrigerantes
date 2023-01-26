@@ -1,4 +1,4 @@
-Cola,100,4
+Cola,100,3
 Fanta,90,4
 Sprit,80,5
 Sumol,100,5
